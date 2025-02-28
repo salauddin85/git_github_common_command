@@ -8,6 +8,7 @@ git log --author="username"                 # Show commits by a specific author
 git log -p                                  # Show commits with file diffs
 git blame file.txt                          # Show who last modified each line in a file
 git shortlog                                # Show commit counts per author
+git shortlog -sn                             # Show the number of commits per author
 
 -------------------------------------
 Undoing Changes & Fixing Mistakes
@@ -33,6 +34,8 @@ git checkout -b new-branch                  # Create and switch to a new branch
 git merge feature-branch                    # Merge with a new commit (no fast forward)
 git branch -d branchname                    # Delete a branch (only if merged)
 git branch -D branchname                    # Force delete a branch (even if not merged)
+git merge --abort                            # Abort a merge if conflicts occur
+git merge --no-ff feature-branch             # Merge with a new commit (no fast forward)
 
 -------------------------------------
 Rebasing
@@ -41,7 +44,7 @@ git rebase main                             # Rebase the current branch onto mai
 git rebase -i HEAD~5                        # Interactive rebase (reword, squash, edit commits)
 git rebase --abort                          # Abort an ongoing rebase
 git rebase --continue                       # Continue rebase after resolving conflicts
-
+git rebase --skip                            # Skip a conflicting commit during rebase
 -----------------------------------
 Stashing & Applying Changes Later
 ------------------------------
@@ -52,6 +55,8 @@ git stash drop                              # Delete the last stash
 git stash pop                               # Apply the last stash and remove it
 git stash push -m "work in progress"        # Create a named stash
 git stash branch new-branch                 # Create a new branch from stashed changes
+git stash save "message"                     # Create a named stash
+git stash branch new-branch                  # Create a new branch from stashed changes
 
 ---------------------------------
 Fetching & Pulling Updates
@@ -71,6 +76,7 @@ git push origin main                        # Push changes to the remote main br
 git push --force                            # Force push (overwrites remote history)
 git push origin --delete branchname         # Delete a remote branch
 git push --tags                             # Push all local tags to remote
+git remote prune origin                      # Remove deleted branches from remote
 
 ---------------------------------------------
 Submodules (Repositories Inside Repositories)
@@ -80,7 +86,6 @@ git submodule update --init --recursive     # Clone and initialize all submodule
 git submodule foreach git pull origin main  # Update all submodules
 git submodule deinit path                   # Uninitialize a submodule
 git rm -rf path                             # Remove a submodule
-
 -------------------------------------------
 Searching in Git History
 --------------------------------------------
@@ -115,4 +120,16 @@ git config --global alias.st "status"       # Create a shortcut for `git status`
 git config --global alias.lg "log --oneline --graph --decorate --all"  # Set log visualization
 git config --global alias.undo "reset HEAD" # Shortcut to undo the last commit
 git config --global alias.unstage "reset HEAD" # Undo git add
+
+-------------------------------------------------
+ Git Cleanup Commands
+--------------------------------------------------
+git gc                                      # Cleanup unnecessary files and optimize local repo
+git prune                                   # Remove unreachable objects
+git fsck                                    # Verify the integrity of the repository
+git clean -n                                # Preview files that would be removed
+git clean -f                                # Force remove untracked files
+git clean -df                               # Remove untracked files and directories
+git reset --hard HEAD && git clean -df      # Reset everything and remove untracked files
+
 
