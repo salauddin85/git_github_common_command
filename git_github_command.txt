@@ -1,0 +1,118 @@
+Checking Repository Status & History
+--------------------------------------
+git status                                  # Show the working directory and staging area status
+git log                                     # Show commit history
+git log --oneline --graph --all             # Show a compact commit history with branches
+git log --since="1 week ago"                # Show commits within a specific time
+git log --author="username"                 # Show commits by a specific author
+git log -p                                  # Show commits with file diffs
+git blame file.txt                          # Show who last modified each line in a file
+git shortlog                                # Show commit counts per author
+
+-------------------------------------
+Undoing Changes & Fixing Mistakes
+-------------------------------------
+
+git checkout -- file.txt                    # Discard changes in the working directory
+git reset HEAD file.txt                      # Unstage a file (move from staged to unstaged)
+git reset --soft HEAD~1                      # Undo the last commit but keep changes staged
+git reset --hard HEAD~1                      # Undo the last commit and remove changes
+git commit --amend                          # Modify the last commit message
+git reflog                                  # See a history of HEAD changes (helpful to recover lost commits)
+git revert HEAD                             # Create a new commit that undoes the last commit
+git cherry-pick abc123                      # Apply a specific commit to the current branch
+
+-------------------------------------
+Branching & Merging
+------------------------------------
+git branch                                  # List all local branches
+git branch -a                               # List all branches (local and remote)
+git branch new-branch                       # Create a new branch
+git checkout new-branch                     # Switch to a new branch
+git checkout -b new-branch                  # Create and switch to a new branch
+git merge feature-branch                    # Merge with a new commit (no fast forward)
+git branch -d branchname                    # Delete a branch (only if merged)
+git branch -D branchname                    # Force delete a branch (even if not merged)
+
+-------------------------------------
+Rebasing
+-------------------------------------
+git rebase main                             # Rebase the current branch onto main
+git rebase -i HEAD~5                        # Interactive rebase (reword, squash, edit commits)
+git rebase --abort                          # Abort an ongoing rebase
+git rebase --continue                       # Continue rebase after resolving conflicts
+
+-----------------------------------
+Stashing & Applying Changes Later
+------------------------------
+git stash                                   # Stash uncommitted changes
+git stash list                              # Show all stashed changes
+git stash apply                             # Apply the last stash without removing it
+git stash drop                              # Delete the last stash
+git stash pop                               # Apply the last stash and remove it
+git stash push -m "work in progress"        # Create a named stash
+git stash branch new-branch                 # Create a new branch from stashed changes
+
+---------------------------------
+Fetching & Pulling Updates
+--------------------------------
+git fetch                                   # Fetch updates from remote without merging
+git pull                                    # Fetch and merge updates from remote
+git pull origin main --allow-unrelated-histories  # Pull changes and resolve conflicts
+
+--------------------------------
+Working with Remote Repositories
+--------------------------------
+git remote -v                               # Show all remote repositories
+git remote rename origin new-name           # Rename a remote repository
+git remote remove origin                    # Remove a remote repository
+git fetch origin                            # Fetch updates from a remote repository
+git push origin main                        # Push changes to the remote main branch
+git push --force                            # Force push (overwrites remote history)
+git push origin --delete branchname         # Delete a remote branch
+git push --tags                             # Push all local tags to remote
+
+---------------------------------------------
+Submodules (Repositories Inside Repositories)
+--------------------------------------------
+git submodule add url path                  # Add a submodule to the repository
+git submodule update --init --recursive     # Clone and initialize all submodules
+git submodule foreach git pull origin main  # Update all submodules
+git submodule deinit path                   # Uninitialize a submodule
+git rm -rf path                             # Remove a submodule
+
+-------------------------------------------
+Searching in Git History
+--------------------------------------------
+git grep "TODO"                             # Search for "TODO" in tracked files
+git log -S "specific text"                  # Find commits where text was added or removed
+git rev-list --all | xargs git grep "text"  # Search in all commits
+
+------------------------------------------
+Bisect (Find the Commit that Introduced a Bug)
+--------------------------------------------
+git bisect start                            # Start a bisect session
+git bisect bad                              # Mark the current commit as bad
+git bisect good abc123                      # Mark a known good commit
+git bisect run test-script.sh               # Automatically bisect with test script
+git bisect reset                            # End the bisect session
+-------------------------------------------
+Working with Tags
+-----------------------------------------
+git tag                                     # List all tags
+git tag v1.0                                # Create a new lightweight tag
+git tag -a v1.0 -m "Version 1.0"            # Create an annotated tag
+git push origin v1.0                        # Push a tag to remote
+git push --tags                             # Push all tags to remote
+git checkout v1.0                           # Checkout a specific tag
+git tag -d v1.0                             # Delete a local tag
+git push origin --delete v1.0               # Delete a remote tag
+
+------------------------------------------------
+Aliases for Faster Git Workflow
+-----------------------------------------------
+git config --global alias.st "status"       # Create a shortcut for `git status`
+git config --global alias.lg "log --oneline --graph --decorate --all"  # Set log visualization
+git config --global alias.undo "reset HEAD" # Shortcut to undo the last commit
+git config --global alias.unstage "reset HEAD" # Undo git add
+
